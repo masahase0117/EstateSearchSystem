@@ -1,18 +1,9 @@
 import urllib.parse
-from enum import Enum
 from functools import partial
 from typing import Generator
 
+from estate_search_system import Pref
 from estate_search_system import load_page
-
-
-class Pref(Enum):
-    """都道府県名"""
-
-    Hyogo = 28
-    Osaka = 27
-    Kyoto = 26
-    Shiga = 25
 
 
 def main(pref=Pref.Osaka, page=1) -> Generator[dict, None, int]:
@@ -32,10 +23,9 @@ def main(pref=Pref.Osaka, page=1) -> Generator[dict, None, int]:
             - 取扱店情報
     """
     url = (
-            "https://suumo.jp/jj/bukken/ichiran/JJ010FJ001/?ar=060&bs=021&ta"
-            "=%d&kb=1&kt=9999999&tb=0&tt=9999999&hb=0&ht=9999999&&tj=0&cnb=0"
-            "&cn=9999999&pc=100"
-            % pref.value
+        "https://suumo.jp/jj/bukken/ichiran/JJ010FJ001/?ar=060&bs=021&ta"
+        "=%d&kb=1&kt=9999999&tb=0&tt=9999999&hb=0&ht=9999999&&tj=0&cnb=0"
+        "&cn=9999999&pc=100" % pref.value
     )
     if page > 1:
         url += "&page=%d" % page
